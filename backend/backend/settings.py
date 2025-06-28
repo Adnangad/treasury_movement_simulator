@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-#!6ktnqlu4(l9th-^+u&38z8#_6lqar=jcc_rc@=hd=nal#-b#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.replit.dev', 'localhost', '127.0.0.1', '0.0.0.0']
 
 
 # Application definition
@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
     'treasuryApi',
 ]
 
@@ -52,6 +53,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+]
+CORS_ALLOWED_ORIGINS = [
+    'https://2d36043c-7ea6-451f-b25c-756de9a219d3-00-kaw91cbjd683.janeway.replit.dev',
+    "http://localhost:5173"
 ]
 
 ROOT_URLCONF = 'backend.urls'
@@ -132,3 +138,7 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://2d36043c-7ea6-451f-b25c-756de9a219d3-00-kaw91cbjd683.janeway.replit.dev'
+]

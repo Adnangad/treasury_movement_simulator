@@ -5,7 +5,7 @@ function App() {
   const [activeTab, setActiveTab] = useState('accounts');
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
-  const url = "https://2d36043c-7ea6-451f-b25c-756de9a219d3-00-kaw91cbjd683.janeway.replit.dev/graphql";
+  const url = "https://treasury-simulator-api.onrender.com/graphql";
   const [accounts, setAccounts] = useState([]);
   const [fromAccount, setFromAccount] = useState("");
   const [toAccount, setToAccount] = useState("");

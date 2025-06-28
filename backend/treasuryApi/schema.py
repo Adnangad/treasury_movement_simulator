@@ -40,7 +40,7 @@ class AccountInput:
 class createAccountsResp:
     status: str
     message: str
-    accounts: list [AccountsType]
+    accounts: AccountsType
 
 
 
@@ -155,15 +155,19 @@ class Mutation:
             print(f"Error is:: {e}")
             return ResponseType(status="Error", message="Unable to transfer the amount at this moment")
     @strawberry.mutation
-    async def createAccounts(self, data: list[AccountInput]) -> createAccountsResp:
+    async def createAccounts(self, accountName: str, amount: float, currency: str) -> createAccountsResp:
         try:
-            created_accounts = []
-            print("The input data received is:: ", data)
-            for i in data:
-                account = await sync_to_async(Accounts.objects.create)(account_name=i.account_name, amount=i.amount, currency=i.currency)
-                created_accounts.append(account)
-            print("CREATED ACCOUNTS ARE:: ", created_accounts)
-            return createAccountsResp(status="Success", message="You have successfully created accounts", accounts=created_accounts)
+            if (currency != "KSHS" and currency != "USD" and currency != "NGN"):
+                return createAccountsResp(status="Error", message="The currency you entered is not supported", accounts=None)
+            if (amount < 0):
+                return createAccountsResp(status="Error", message="The amount you entered is not valid", accounts=None)
+            accountExists = await sync_to_async(Accounts.objects.filter(account_name=accountName).exists)()
+            if accountExists:
+                return createAccountsResp(status="Error", message="This account already exists", accounts=None)
+            print("Creating account")
+            print("Amount is:: ", amount)
+            account = await sync_to_async(Accounts.objects.create)(account_name=accountName, amount=amount, currency=currency)
+            return createAccountsResp(status="Success", message="You have successfully created accounts", accounts=account)
         except Exception as e:
             print(f"Error is:: {e}")
-            return createAccountsResp(status="Error", message=e, accounts=[])
+            return createAccountsResp(status="Error", message=e, accounts=None)

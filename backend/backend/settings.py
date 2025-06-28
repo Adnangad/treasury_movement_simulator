@@ -61,7 +61,8 @@ MIDDLEWARE = [
 ]
 CORS_ALLOWED_ORIGINS = [
     'https://2d36043c-7ea6-451f-b25c-756de9a219d3-00-kaw91cbjd683.janeway.replit.dev',
-    "http://localhost:5173"
+    "http://localhost:5173",
+    "https://treasury-movement-simulator-nu.vercel.app"
 ]
 
 ROOT_URLCONF = 'backend.urls'

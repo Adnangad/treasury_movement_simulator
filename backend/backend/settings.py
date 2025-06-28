@@ -31,7 +31,8 @@ SECRET_KEY = 'django-insecure-#!6ktnqlu4(l9th-^+u&38z8#_6lqar=jcc_rc@=hd=nal#-b#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.replit.dev', 'localhost', '127.0.0.1', '0.0.0.0']
+ALLOWED_HOSTS = getenv('ALLOWED_HOSTS', 'localhost').split(',')
+
 
 
 # Application definition
